@@ -11,7 +11,7 @@ class SparkHelper:
             .setMaster("local[*]") \
             .setAppName("processCSV")
 
-        csv = "hdfs://kudu:20500/up/csv"
+        #csv = "hdfs://kudu:20500/up/csv"
 
         sc = SparkContext(conf=conf)
         sp = SQLContext(sc)
