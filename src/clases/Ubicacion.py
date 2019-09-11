@@ -12,15 +12,3 @@ class Ubicacion:
         self.localidad = localidad
         self.provincia = provincia
         self.codigopostal = codigopostal
-
-    id = 0
-    nombre = ''
-    tipo = ''
-    calle = ''
-    numero = ''
-    barrio = ''
-    comuna = ''
-    partido = ''
-    localidad = ''
-    provincia = ''
-    codigopostal = ''

@@ -6,10 +6,10 @@ class SparkHelper:
 
     def readcsv(self, ruta, showheader=True):
         conf = SparkConf().set("spark.driver.memory", "10g") \
-            .set("spark.debug.maxToStringFields", "10000") \
-            .set("spark.driver.maxResultSize", "1g") \
-            .setMaster("local[*]") \
-            .setAppName("processCSV")
+                          .set("spark.debug.maxToStringFields", "10000") \
+                          .set("spark.driver.maxResultSize", "1g") \
+                          .setMaster("local[*]") \
+                          .setAppName("processCSV")
 
         sc = SparkContext(conf=conf)
         sp = SQLContext(sc)
@@ -18,11 +18,11 @@ class SparkHelper:
 
     def writetoparquet(self, dataframe, ruta, archivo):
         rutacompleta = ruta + "/" + archivo
-        dataframe = self.cleancharacters(dataframe)
+        dataframe = self.renamecolumns(dataframe)
         dataframe.write.parquet(rutacompleta)
 
-    def cleancharacters(self, dataframe):
-        dataframe = dataframe.withColumnRenamed("Id Entidad", "IdEntidad")
-        dataframe = dataframe.withColumnRenamed("Id Ubicaci", "IdUbicacion")
-        dataframe = dataframe.withColumnRenamed("Tipo Ubica", "TipoUbicacion")
-        return dataframe
+    def renamecolumns(self, dataframe):
+        return dataframe.withColumnRenamed("Id Entidad", "IdEntidad") \
+                        .withColumnRenamed("Id Ubicaci", "IdUbicacion") \
+                        .withColumnRenamed("Tipo Ubica", "TipoUbicacion")
+

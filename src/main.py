@@ -11,6 +11,7 @@ def main():
     dataframe = sh.readcsv(SOURCE_FILE, True)
     # Escribimos el dataframe en formato Parquet en el HDFS
     sh.writetoparquet(dataframe, HDFS_OUTPUT_DIR, "resultado.parquet")
+
     return 0
 
 

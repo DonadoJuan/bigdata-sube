@@ -10,10 +10,3 @@ class PuntoDeCarga:
         self.cuit = cuit
         self.Ubicacion = Ubicacion(idubicacion, nombre, tipo, calle, numero, barrio, comuna, partido, localidad, provincia, codigopostal)
         self.Coordenada = Coordenada(latitud, longitud)
-
-    id = 0
-    entidad = ''
-    modalidad = ''
-    cuit = ''
-    Ubicacion = None
-    Coordenada = None
