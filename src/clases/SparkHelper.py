@@ -11,9 +11,18 @@ class SparkHelper:
             .setMaster("local[*]") \
             .setAppName("processCSV")
 
-        #csv = "hdfs://kudu:20500/up/csv"
-
         sc = SparkContext(conf=conf)
         sp = SQLContext(sc)
         df = sp.read.csv(ruta, header=showheader)
         return df
+
+    def writetoparquet(self, dataframe, ruta, archivo):
+        rutacompleta = ruta + "/" + archivo
+        dataframe = self.cleancharacters(dataframe)
+        dataframe.write.parquet(rutacompleta)
+
+    def cleancharacters(self, dataframe):
+        dataframe = dataframe.withColumnRenamed("Id Entidad", "IdEntidad")
+        dataframe = dataframe.withColumnRenamed("Id Ubicaci", "IdUbicacion")
+        dataframe = dataframe.withColumnRenamed("Tipo Ubica", "TipoUbicacion")
+        return dataframe
