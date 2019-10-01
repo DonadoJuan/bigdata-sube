@@ -17,6 +17,8 @@ def main():
     sh.writetoparquet(dataframe, HDFS_OUTPUT_DIR, "resultado.parquet")
     print('Se escribió el archivo "resultado.parquet" en formato Parquet en "' + HDFS_OUTPUT_DIR + '"')
 
+
+
     return 0
 
 
