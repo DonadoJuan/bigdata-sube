@@ -60,7 +60,12 @@ class SparkHelper:
         Escribe el dataframe en la base de datos Cassandra.
         :param dataframe: Objeto dataframe a escribir.
         """
-
+        cluster = Cluster(['127.0.0.1'], port=9042)
+        session = cluster.connect('cityinfo', wait_for_all_pools=True)
+        session.execute('USE bidgdatasube')
+        #rows = session.execute('SELECT * FROM users')
+        #for row in rows:
+        #    print(row.age, row.name, row.username)
 
     # def writetoavro(self, dataframe, ruta, archivo):
     #     """
