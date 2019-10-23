@@ -1,5 +1,5 @@
 import os
-import pandas
+import pyspark.sql.functions as f
 
 from src.clases import Constantes
 from pyspark import SparkContext, SparkConf
@@ -62,8 +62,6 @@ class SparkHelper:
         Escribe el dataframe en la base de datos Cassandra.
         :param dataframe: Objeto dataframe a escribir.
         """
-        #dataframe = dataframe.replace('[^a-zA-Z0-9 ]', '', regex=True)
-        #dataframe = dataframe.apply(lambda x: x.str.replace('[^a-zA-Z0-9]', ''), axis=0)
 
         cluster = Cluster(['127.0.0.1'], port=9042)
         session = cluster.connect(Constantes.CASSANDRA_KEYSPACE, wait_for_all_pools=True)
@@ -86,3 +84,30 @@ class SparkHelper:
             i = i + 1
 
         return i
+
+
+    def showterminalcountbyprovince(self, dataframe):
+        """
+        Muestra la cantidad de puntos de carga por provincia
+        :param dataframe:
+        :return:
+        """
+        dataframe.groupby('provincia').count().orderBy('count', ascending=False).select('provincia', f.col('count').alias('cantidad')).show(100)
+
+
+    def showterminalcountbyprovider(self, dataframe):
+        """
+        Muestra la cantidad de puntos de carga por prestador
+        :param dataframe:
+        :return:
+        """
+        dataframe.withColumnRenamed("Nro.Cuit", "cuit").groupby('cuit').count().orderBy('count', ascending=False).select('cuit', f.col('count').alias('cantidad')).show(100)
+
+    def showterminalcountbymode(self, dataframe):
+        """
+        Muestra la cantidad de puntos de carga por modalidad
+        :param dataframe:
+        :return:
+        """
+        dataframe.groupby('Modalidad').count().orderBy('count', ascending=False).select('Modalidad', f.col('count').alias('cantidad')).show(2)
+

@@ -27,7 +27,16 @@ def main():
     print('Escribiendo el DataFrame en Cassandra...')
     cantidad = sh.writetocassandra(dataframeParquet)
     print('Se escribieron ' + str(cantidad) + ' registros en BigDataSube.PuntosDeCarga')
-    input('Presione ENTER para continuar...')
+    print('===== Fin etapa 2 =====')
+
+    print('--- Estadisticas ---')
+    input('Puntos de carga por provincia (ENTER):')
+    sh.showterminalcountbyprovince(dataframeParquet)
+    input('Puntos de carga por prestador (CUIT) (ENTER):')
+    sh.showterminalcountbyprovider(dataframeParquet)
+    input('Puntos de carga por modalidad (ENTER):')
+    sh.showterminalcountbymode(dataframeParquet)
+    print('===== Fin etapa 3 =====')
 
     return 0
 
